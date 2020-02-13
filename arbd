@@ -1,0 +1,5 @@
+{"forDate":"Thu Jan 30 2020","c0:ee:fb:00:04:90":{"ip":"192.168.0.166","mac":"c0:ee:fb:00:04:90","lastActiveAt":[{"$$date":1580360897278}],"firstActiveAt":{"$$date":1580360858836},"email":"ashutosh.singh@admitkard.com"},"_id":"ZV3IFM3v9hx1n7Oo"}
+{"forDate":"Mon Feb 10 2020","c0:ee:fb:00:04:90":{"ip":"192.168.1.20","mac":"c0:ee:fb:00:04:90","lastActiveAt":{"$$date":1581358752253},"firstActiveAt":{"$$date":1581358752253},"email":"your@second.email"},"_id":"d6KP1omzUYugs9Gs"}
+{"forDate":"Tue Feb 11 2020","_id":"fdJZGUPdetbK6Ww8"}
+{"$$deleted":true,"_id":"fdJZGUPdetbK6Ww8"}
+{"forDate":"Tue Feb 11 2020","_id":"KjDosT8QSWaMWRYO"}

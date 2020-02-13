@@ -1,0 +1,19 @@
+{
+  "name": "wifilistener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^2.3.2",
+    "csv-writer": "^1.6.0",
+    "libnmap": "^0.4.19",
+    "local-devices": "^3.0.0",
+    "nedb": "^1.8.0",
+    "node-cron": "^2.0.3"
+  }
+}
