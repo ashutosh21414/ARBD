@@ -15,8 +15,14 @@ npm i
 ```
 *Incase your system does not have  arp-scan installed, use following command.
 
+For Linux/Ubuntu
 ```bash
 sudo apt-get install arp-scan
+```
+
+For MacOS
+```bash
+brew install arp-scan
 ```
 
 *Note: This code is tested successfully on Ubuntu. For Windows few additional changes would be required.

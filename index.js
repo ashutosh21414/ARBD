@@ -5,8 +5,16 @@ const csv_parser = require('csv-parser')
 const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Datastore = require('nedb');
+const os = require('os');
+const platform = os.platform();
 
 
+let networInterface = 'wlp2s0';
+if (platform === 'darwin') {
+  networInterface = 'en0'
+} else if (platform === 'linux') {
+  networInterface = 'wlp2s0';
+}
 
 // Initializations
 
@@ -24,35 +32,42 @@ const filePath = './attendance_sheets/' + (new Date()).toDateString() + '.csv';
 
 // CSV Processings
 
+var header = [{
+  id: 'email',
+  title: 'email'
+},
+{
+  id: 'ip',
+  title: 'ip'
+},
+{
+  id: 'mac',
+  title: 'mac'
+},
+{
+  id: 'lastActiveAt',
+  title: 'lastActiveAt'
+},
+{
+  id: 'firstActiveAt',
+  title: 'firstActiveAt'
+},
+{
+  id: 'totalTime',
+  title: 'totalTime'
+},
+];
 
-var csvWriter = createCsvWriter({
-  path: filePath,
-  header: [{
-      id: 'email',
-      title: 'email'
-    },
-    {
-      id: 'ip',
-      title: 'ip'
-    },
-    {
-      id: 'mac',
-      title: 'mac'
-    },
-    {
-      id: 'lastActiveAt',
-      title: 'lastActiveAt'
-    },
-    {
-      id: 'firstActiveAt',
-      title: 'firstActiveAt'
-    },
-    {
-      id: 'totalTime',
-      title: 'totalTime'
-    },
-  ]
-});
+var csvWriter;
+
+function createCSVWriter() {
+    return createCsvWriter({
+      path: filePath,
+      header: header
+    });
+};
+
+csvWriter = createCSVWriter();
 
 
 function presetUser() {
@@ -94,27 +109,26 @@ async function updateCSV(users) {
     }
 
     await removePreviousFile();
+    csvWriter = createCSVWriter();
     await csvWriter.writeRecords(dataForCsv)
   });
 }
 
 
 // User specific processings
-
 async function checkStatusOfUsers() {
-  var yourscript = exec('sudo arp-scan --interface=wlp2s0 --localnet',
+  console.log(`Scanning on ${networInterface}`);
+  var yourscript = exec(`sudo arp-scan --interface=${networInterface} --localnet`,
     async (error, stdout, stderr) => {
       if (error || stderr) {
         console.error(`exec error: ${error}`);
         console.error(`exec stderr ${stderr}`);
       } else {
         let users = stdout.split('\n').filter(a => a).slice(2);
-
         for (let userItr = 0; userItr < users.length - 2; userItr++) {
           let linesDecoded = (users[userItr]).split('\t');
           let macAddress = linesDecoded[1];
           let ip = linesDecoded[0];
-
 
           if (userObjects[macAddress] && userObjects[macAddress].ip) {
             userObjects[macAddress].ip = ip;
@@ -170,7 +184,6 @@ async function checkStatusOfUsers() {
 
 
 // Utilities
-
 function calculateTimeDifference(previousTime, currentTime) {
   const date1 = (new Date(previousTime)).getTime();
   const date2 = (new Date(currentTime)).getTime();
