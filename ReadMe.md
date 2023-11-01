@@ -25,7 +25,7 @@ For MacOS
 brew install arp-scan
 ```
 
-*Note: This code is tested successfully on Ubuntu. For Windows few additional changes would be required.
+*Note: This code is tested successfully on Ubuntu and MacOS. For Windows few additional changes would be required.
 
 
 ## Start
